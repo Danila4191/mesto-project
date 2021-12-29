@@ -1,0 +1,17 @@
+.form__line {
+  width: 358px;
+  margin-left: 36px;
+  margin-right: 36px;
+  border: 1px solid #000000;
+  opacity: 0.2;
+}
+@media (max-width: 700px) {
+  .form__line {
+    width: 238px;
+    margin-left: 22px;
+    margin-right: 22px;
+  }
+}
+.form__line:not(:last-child) {
+  margin-bottom: 30px;
+}

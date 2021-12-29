@@ -1,0 +1,8 @@
+.form__container {
+  margin-top: 47px;
+}
+@media (max-width: 700px) {
+  .form__container {
+    margin-top: 75px;
+  }
+}

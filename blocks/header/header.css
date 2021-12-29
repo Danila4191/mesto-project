@@ -1,0 +1,11 @@
+.header {
+  max-width: 880px;
+  margin: 45px auto 0;
+  height: 74px;
+}
+@media (max-width: 700px) {
+  .header {
+    margin-top: 28px;
+    height: 56px;
+  }
+}
