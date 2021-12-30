@@ -9,7 +9,6 @@
   <body class="page">
     <header class="header">
       <img class="logo__vector" src="./image/Vector.svg" alt="логотип" />
-      <div class="header__line"></div>
     </header>
     <main class="content">
       <section class="profile">
@@ -20,12 +19,11 @@
         />
         <div class="info">
           <h1 class="info__name">Жак-Ив Кусто</h1>
-          <button class="info__edit-button">
+          <button type="submit" class="info__edit-button">
           </button>
           <p class="info__paragraph">Исследователь океана</p>
         </div>
-        <button class="profile__button">
-
+        <button type="submit" class="profile__button">
         </button>
       </section>
       <section class="photos">
@@ -36,8 +34,8 @@
             alt="Картинка"
           />
           <div class="element__container">
-            <p class="element__title">Карачаевск</p>
-            <button class="element__like element__like_active"></button>
+            <h2 class="element__title">Карачаевск</h2>
+            <button type="submit" class="element__like "></button>
           </div>
         </div>
         <div class="element">
@@ -47,8 +45,8 @@
             alt="Картинка"
           />
           <div class="element__container">
-            <p class="element__title">Гора Эльбрус</p>
-            <button class="element__like"></button>
+            <h2 class="element__title">Гора Эльбрус</h2>
+            <button type="submit" class="element__like"></button>
           </div>
         </div>
         <div class="element">
@@ -58,8 +56,8 @@
             alt="Картинка"
           />
           <div class="element__container">
-            <p class="element__title">Домбай</p>
-            <button class="element__like"></button>
+            <h2 class="element__title">Домбай</h2>
+            <button type="submit" class="element__like"></button>
           </div>
         </div>
         <div class="element">
@@ -69,8 +67,8 @@
             alt="Картинка"
           />
           <div class="element__container">
-            <p class="element__title">Гора эльбрус</p>
-            <button class="element__like"></button>
+            <h2 class="element__title">Гора эльбрус</h2>
+            <button type="submit" class="element__like"></button>
           </div>
         </div>
         <div class="element">
@@ -80,8 +78,8 @@
             alt="Картинка"
           />
           <div class="element__container">
-            <p class="element__title">Домбай</p>
-            <button class="element__like"></button>
+            <h2 class="element__title">Домбай</h2>
+            <button type="submit" class="element__like"></button>
           </div>
         </div>
         <div class="element">
@@ -91,8 +89,8 @@
             alt="Картинка"
           />
           <div class="element__container">
-            <p class="element__title">Карачаевск</p>
-            <button class="element__like"></button>
+            <h2 class="element__title">Карачаевск</h2>
+            <button type="submit" class="element__like"></button>
           </div>
         </div>
       </section>
@@ -100,23 +98,21 @@
     <footer class="footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
-    <section class="poput poput_opened">
-      <form class="form">
-        <div class="form__overplay">
-          <button class="form__close">
+    <div class="popup popup_opened">
+      <div class="form">
+        <form name="form">
+          <button type="submit" class="form__close">
           </button>
           <h2 class="form__title">Редактировать профиль</h2>
           <div class="form__container">
-            <input class="form__input" type="text" placeholder="Имя"/>
-            <div class="form__line"></div>
-            <input class="form__input" type="text" placeholder="О себе"/>
-            <div class="form__line"></div>
+            <input class="form__input " id="form_name"  type="text" name="name"  placeholder="Имя"/>
+            <input class="form__input" id="form_text" type="text" name="text"  placeholder="О себе"/>
           </div>
-          <button class="form__save-button">
+          <button type="submit" class="form__save-button">
             Сохранить
           </button>
-        </div>
-      </form>
-    </section>-->
+        </form>
+      </div>
+    </div>
   </body>
 </html>

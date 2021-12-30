@@ -2,7 +2,6 @@
 @import url(../vendor/inter.css);
 @import url(../blocks/page/page.css);
 @import url(../blocks/header/header.css);
-@import url(../blocks/header/__line/header__line.css);
 @import url(../blocks/logo/__vector/logo__vector.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
@@ -20,13 +19,12 @@
 @import url(../blocks/info/__name/info__name.css);
 @import url(../blocks/info/__edit-button/info__edit-button.css);
 @import url(../blocks/profile/__button/profile__button.css);
-@import url(../blocks/poput/poput.css);
-@import url(../blocks/poput/_opened/poput_opened.css);
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__title/form__title.css);
 @import url(../blocks/form/__save-button/form__save-button.css);
 @import url(../blocks/form/__container/form__container.css);
-@import url(../blocks/form/__line/form__line.css);
 @import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__close/form__close.css);
 

@@ -3,18 +3,21 @@
   position: absolute;
   top: -40px;
   right: -40px;
+  height: 32px;
   width: 32px;
   padding: 0px;
-  height: 32px;
-  background-color: none;
+  background-color: inherit;
   z-index: 2;
   cursor: pointer;
-  background-image: url(../../../image/Close\ Icon.png);
+  background-image: url(../../../image/Close.svg);
   background-repeat: no-repeat;
 }
 @media (max-width: 700px) {
   .form__close {
     right: 0px;
+    height: 20px;
+    width: 20px;
+    background-size: 20px 20px;
   }
 }
 .form__close:hover {

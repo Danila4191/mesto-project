@@ -3,6 +3,5 @@
   border-radius: 10px;
   display: grid;
   grid-template-rows: repeat(2, auto);
-  height: 362px;
   width: 282px;
 }

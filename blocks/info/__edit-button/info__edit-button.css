@@ -3,7 +3,7 @@
   height: 24px;
   border: 1px solid #ffffff;
   box-sizing: border-box;
-  background-color: black;
+  background-color: inherit;
   cursor: pointer;
   margin-bottom: 9px;
   background-image: url(../../../image/Vector5.svg);
@@ -14,6 +14,7 @@
   .info__edit-button {
     width: 18px;
     height: 18px;
+    margin-bottom: 7px;
   }
 }
 .info__edit-button:hover {

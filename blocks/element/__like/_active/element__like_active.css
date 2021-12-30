@@ -1,6 +1,3 @@
 .element__like_active {
-  background-image: url(../../../../image/Union.jpg);
-  background-repeat: no-repeat;
-  margin-right: 0px;
-  margin-left: auto;
+  background-image: url(../../../../image/Union.svg);
 }

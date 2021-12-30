@@ -4,7 +4,7 @@
   border: 2px solid #ffffff;
   box-sizing: border-box;
   border-radius: 2px;
-  background-color: black;
+  background-color: inherit;
   margin-right: 0px;
   margin-left: auto;
   margin-top: 35px;
@@ -12,16 +12,17 @@
   cursor: pointer;
   background-image: url(../../../image/Vector2.svg);
   background-repeat: no-repeat;
-  background-position:center;
+  background-position: center;
 }
 @media (max-width: 700px) {
   .profile__button {
     width: 282px;
     margin-right: auto;
     margin-bottom: 0px;
+    background-size: 16px 16px;
   }
 }
 .button:hover {
   transition: 1s ease-out;
-  opacity: 0.5;
+  opacity: 0.6;
 }
