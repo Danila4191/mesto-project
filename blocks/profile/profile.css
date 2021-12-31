@@ -2,7 +2,6 @@
   margin: 0px;
   padding: 0px;
   max-width: 880px;
-  max-height: 120px;
   margin: 40px auto 0;
   display: flex;
 }
@@ -16,7 +15,6 @@
   .profile {
     padding: 0;
     flex-direction: column;
-    max-height: max-content;
     max-width: 282px;
   }
 }

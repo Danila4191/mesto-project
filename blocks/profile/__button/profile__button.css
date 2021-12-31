@@ -22,7 +22,7 @@
     background-size: 16px 16px;
   }
 }
-.button:hover {
+.profile__button:hover {
   transition: 1s ease-out;
   opacity: 0.6;
 }
