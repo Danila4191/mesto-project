@@ -4,4 +4,11 @@
   margin: 0px auto;
   min-width: 320px;
   font-family: "inter", "Arial", sans-serif;
+  position: relative;
+  min-height: 100%;
+}
+.page::after {
+  content: "";
+  display: block;
+  height: 150px;
 }

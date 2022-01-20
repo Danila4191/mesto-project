@@ -1,4 +1,5 @@
 .element__container {
+
   display: grid;
   grid-template-columns: repeat(2, auto);
   padding-top: 25px;
