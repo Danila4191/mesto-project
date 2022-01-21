@@ -27,13 +27,12 @@
 @import url(../blocks/form/__save-button/form__save-button.css);
 @import url(../blocks/form/__container/form__container.css);
 @import url(../blocks/form/__input/form__input.css);
-@import url(../blocks/form/__close/form__close.css);
 @import url(../blocks/html/html.css);
-@import url(../blocks/popup/__close/popup__img-close.css);
+@import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/__img/popup__img.css);
 @import url(../blocks/popup/__title/popup__img-title.css);
 @import url(../blocks/popup/__container/popup__container.css);
-@import url(../blocks/popup/__container/_img/popup__container_img\ .css);
+@import url(../blocks/popup/__container/_img/popup__container_img.css);
 
 
 

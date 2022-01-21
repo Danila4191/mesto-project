@@ -1,8 +1,8 @@
 .form__close {
   border: none;
-  position: absolute;
   top: -40px;
   right: -40px;
+  position: absolute;
   height: 32px;
   width: 32px;
   padding: 0px;
