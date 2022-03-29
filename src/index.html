@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html class="html" lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Mestro</title>
+  </head>
+  <body class="page">
+    <header class="header">
+      <img
+        class="logo__vector"
+        src="<%=require('./image/Vector.svg')%>"
+        alt="логотип"
+      />
+    </header>
+    <main class="content">
+      <section class="profile">
+        <img
+          class="profile__avatar"
+          src="<%=require('./image/image.jpg')%>"
+          alt="фото профиля"
+        />
+        <div class="info">
+          <h1 class="info__name">Жак-Ив Кусто</h1>
+          <button type="button" class="info__edit-button"></button>
+          <p class="info__paragraph">Исследователь океана</p>
+        </div>
+        <button type="button" class="profile__button"></button>
+      </section>
+      <section class="photos"></section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">© 2020 Mesto Russia</p>
+    </footer>
+    <div class="popup" id="popup-edit">
+      <div class="popup__container">
+        <button type="button" class="popup__close" id="profile_close"></button>
+        <form class="form" name="edit-profile" id="edit-profile" novalidate>
+          <h2 class="form__title">Редактировать профиль</h2>
+          <div class="form__container">
+            <div class="form__input-container">
+              <input
+                class="form__input"
+                id="form_name"
+                type="text"
+                name="name"
+                placeholder="Имя"
+                required
+                minlength="2"
+                maxlength="40"
+                autocomplete="off"
+              />
+              <span id="form_name-error" class="error"></span>
+            </div>
+            <div class="form__input-container">
+              <input
+                class="form__input"
+                id="form_text"
+                type="text"
+                name="text"
+                placeholder="О себе"
+                required
+                minlength="2"
+                maxlength="200"
+                autocomplete="off"
+              />
+              <span id="form_text-error" class="error"></span>
+            </div>
+          </div>
+          <button id="profile_save" type="submit" class="form__save-button">
+            Сохранить
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="popup" id="popup-add">
+      <div class="popup__container">
+        <button type="button" class="popup__close" id="add_close"></button>
+        <form class="form" name="add-img" id="add-img" novalidate>
+          <h2 class="form__title">Новое Место</h2>
+          <div class="form__container">
+            <div class="form__input-container">
+              <input
+                class="form__input"
+                id="formEmptyName"
+                type="text"
+                name="name"
+                placeholder="Название"
+                required
+                minlength="2"
+                maxlength="30"
+                autocomplete="off"
+              />
+              <span id="formEmptyName-error" class="error"></span>
+            </div>
+            <div class="form__input-container">
+              <input
+                class="form__input"
+                id="formEmptyLink"
+                type="url"
+                name="href"
+                placeholder="Ссылка на картинку"
+                required
+                autocomplete="off"
+              />
+              <span id="formEmptyLink-error" class="error"></span>
+            </div>
+          </div>
+          <button
+            id="add_save"
+            type="submit"
+            class="form__save-button form__save-button_disabled"
+            disabled
+          >
+            Создать
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_img" id="popup-img">
+      <div class="popup__container_img">
+        <button type="button" class="popup__close" id="img_close"></button>
+        <img
+          class="popup__img"
+          src="<%=require('./image/image.jpg')%>"
+          alt="картинка"
+        />
+        <h2 class="popup__img-title"></h2>
+      </div>
+    </div>
+    <template id="template">
+      <div class="element">
+        <img class="element__mask-group" src="" alt="Картинка" />
+        <button class="element__delete-button"></button>
+        <div class="element__container">
+          <h2 class="element__title">Гора Эльбрус</h2>
+          <button type="button" class="element__like"></button>
+        </div>
+      </div>
+    </template>
+  </body>
+</html>
