@@ -28,8 +28,6 @@ export function popupAddSave(evt) {
   addImgButtonSave.classList.add("form__save-button_disabled");
 }
 
-
-
 export function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", escClose);
