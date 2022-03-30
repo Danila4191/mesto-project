@@ -1,5 +1,5 @@
-import { photos, popupImg, openPopup } from "../script/utils.js";
-
+import { photos, popupImg,} from "../script/utils.js";
+import {openPopup} from "../script/modal.js";
 export function eventElement(event) {
   likeCard();
   deleteCard();
@@ -22,14 +22,16 @@ export function createCard(imgName, imgLink) {
   const popupTittleScale = document.querySelector(".popup__img-title");
   newElement.querySelector(".element__mask-group").src = imgLink;
   newElement.querySelector(".element__title").textContent = imgName;
-  renderCard(newElement, photos);
   const photoCardImage = newElement.querySelector(".element__mask-group");
   photoCardImage.addEventListener("click", () => {
     popupImgScale.src = imgLink;
     popupTittleScale.textContent = imgName;
     openPopup(popupImg);
   });
+  return newElement;
 }
-function renderCard(card, container) {
-  container.prepend(card);
+
+export function renderCard (imgName, imgLink, container) {
+  const card = createCard(imgName, imgLink)
+     container.prepend(card)
 }

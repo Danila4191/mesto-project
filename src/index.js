@@ -1,10 +1,8 @@
 import "../src/pages/index.css";
 import { enableValidation } from "./script/valid.js";
-import { submitProfileForm, popupAddSave } from "./script/modal.js";
-import { eventElement, createCard } from "./script/card.js";
+import { submitProfileForm, popupAddSave,closePopup,openPopup  } from "./script/modal.js";
+import { eventElement,renderCard, createCard} from "./script/card.js";
 import {
-  closePopup,
-  openPopup,
   photos,
   popupEdit,
   popupAdd,
@@ -56,6 +54,6 @@ enableValidation(validationConfig);
 initialCards.forEach(function (element) {
   const imgName = element.name;
   const imgLink = element.link;
-  createCard(imgName, imgLink);
+  renderCard(imgName, imgLink,photos);
 });
 
