@@ -7,27 +7,8 @@ export const infoName = document.querySelector(".info__name");
 export const addImgButtonSave = document.querySelector("#add_save");
 export const infoParagraph = document.querySelector(".info__paragraph");
 export const popupImg = document.querySelector("#popup-img");
-
-export function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", escClose);
-  document.removeEventListener("keydown", overplayClose);
-}
-export function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", (evt) => {
-    escClose(evt, popup);
-  });
-  popup.addEventListener("click",  overplayClose);
-}
-const ESC = 27
-function escClose(evt, popup) {
-  if (evt.keyCode === ESC) {
-    closePopup(popup);
-  }
-}
-function overplayClose(evt) {
-  if (evt.target.classList.contains("popup")) {
-    closePopup(evt.target);
-  }
-}
+export const popupImgProfile = document.querySelector('#popupImgProfile')
+export const formAvatarProfileLink = document.querySelector('#formAvatarProfileLink')
+export const profileAvatar = document.querySelector(".profile__avatar")
+export const AvatarProfileSave = document.querySelector("#AvatarProfileSave")
+export const editProfileButtonSave = document.querySelector("#profile_save");

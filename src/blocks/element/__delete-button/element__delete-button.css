@@ -10,7 +10,7 @@
   background-repeat: no-repeat;
   background-color: initial;
   background-image: url(../../../image/delete.svg);
-cursor: pointer;
+  cursor: pointer;
   padding: 0px;
 }
 .element__delete-button:hover {
