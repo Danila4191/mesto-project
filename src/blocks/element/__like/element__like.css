@@ -10,6 +10,7 @@
   cursor: pointer;
   margin-bottom: 4px;
   margin-top: auto;
+
 }
 .element__like:hover {
   transition: 1s ease-out;

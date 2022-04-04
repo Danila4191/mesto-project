@@ -7,5 +7,9 @@ export const infoName = document.querySelector(".info__name");
 export const addImgButtonSave = document.querySelector("#add_save");
 export const infoParagraph = document.querySelector(".info__paragraph");
 export const popupImg = document.querySelector("#popup-img");
-
-
+export const popupImgProfile = document.querySelector('#popupImgProfile')
+export const formAvatarProfileLink = document.querySelector('#formAvatarProfileLink')
+export const profileAvatar = document.querySelector(".profile__avatar")
+export const AvatarProfileSave = document.querySelector("#AvatarProfileSave")
+export const editProfileButtonSave = document.querySelector("#profile_save");
+>>>>>>> develop

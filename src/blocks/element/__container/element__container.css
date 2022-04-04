@@ -1,9 +1,8 @@
 .element__container {
-
   display: grid;
-  grid-template-columns: repeat(2, auto);
-  padding-top: 25px;
+  grid-template-columns:223px 23px;
+  padding-top: 22px;
   padding-right: 20px;
-  padding-left: 21px;
-  padding-bottom: 25px;
+  padding-left: 16px;
+  padding-bottom: 22px;
 }

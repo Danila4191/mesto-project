@@ -6,21 +6,66 @@ import {
   infoName,
   addImgButtonSave,
   infoParagraph,
-  photos
+  photos,
+  popupImgProfile,
+  formAvatarProfileLink,
+  profileAvatar,
+  AvatarProfileSave,
+  editProfileButtonSave,
 } from "../script/utils.js";
 import { renderCard } from "../script/card.js";
+import {
+  submitAddCardFormApi,
+  submitProfileFormApi,
+  submitAvatarProfileFormApi,
+} from "../script/api.js";
 
 export function submitProfileForm(evt) {
   evt.preventDefault();
-  infoName.textContent = formName.value;
-  infoParagraph.textContent = formText.value;
-  closePopup(popupEdit);
+  editProfileButtonSave.textContent = "Сохранить...";
+  submitProfileFormApi({ name: formName.value, about: formText.value })
+    .then(() => {
+      infoName.textContent = formName.value;
+      infoParagraph.textContent = formText.value;
+      closePopup(popupEdit);
+      editProfileButtonSave.textContent = "Сохранить";
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
-export function popupAddSave(evt) {
+export function submitAvatarProfileForm(evt) {
   evt.preventDefault();
-  const imgName = formEmptyName.value;
-  const imgLink = formEmptyLink.value;
-  renderCard(imgName, imgLink,photos);
+  AvatarProfileSave.textContent = "Сохранить...";
+  submitAvatarProfileFormApi({ avatar: formAvatarProfileLink.value })
+    .then(() => {
+      profileAvatar.src = formAvatarProfileLink.value;
+      formAvatarProfileLink.value = "";
+      closePopup(popupImgProfile);
+      AvatarProfileSave.disabled = "disabled";
+      AvatarProfileSave.classList.add("form__save-button_disabled");
+      AvatarProfileSave.textContent = "Сохранить";
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+export function submitAddCardForm(evt) {
+  evt.preventDefault();
+
+  addImgButtonSave.textContent = "Создать...";
+  submitAddCardFormApi({
+    name: formEmptyName.value,
+    link: formEmptyLink.value,
+  })
+    .then((dataFromServer) => {
+      renderCard(dataFromServer, photos);
+      addImgButtonSave.textContent = "Создать";
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
   closePopup(popupAdd);
   formEmptyName.value = "";
   formEmptyLink.value = "";
@@ -36,12 +81,14 @@ export function closePopup(popup) {
 export function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", escClose);
-  popup.addEventListener("click",  overplayClose);
+
+  popup.addEventListener("click", overplayClose);
 }
-const ESC = 27
+const ESC = 27;
 function escClose(evt) {
   if (evt.keyCode === ESC) {
-    const openedPopup = document.querySelector('.popup_opened');
+    const openedPopup = document.querySelector(".popup_opened");
+
     closePopup(openedPopup);
   }
 }
