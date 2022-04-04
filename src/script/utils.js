@@ -10,6 +10,6 @@ export const popupImg = document.querySelector("#popup-img");
 export const popupImgProfile = document.querySelector('#popupImgProfile')
 export const formAvatarProfileLink = document.querySelector('#formAvatarProfileLink')
 export const profileAvatar = document.querySelector(".profile__avatar")
-export const AvatarProfileSave = document.querySelector("#AvatarProfileSave")
+export const AvatarProfileSave = document.querySelector("#avatarProfileSave")
 export const editProfileButtonSave = document.querySelector("#profile_save");
->>>>>>> develop
+

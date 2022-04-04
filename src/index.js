@@ -74,7 +74,7 @@ getAllCardsApi().then((elements) => {
     .forEach(function (element) {
       renderCard(element, photos);
     })
-});
+}).catch((err) => console.log(err));
 
 userApi()
   .then((data) => {

@@ -61,11 +61,17 @@ export function createCard(element) {
           e.target.classList.toggle("element__like_active");
           likeCount.textContent = dataFromServer.likes.length;
         }
-      );
+      )
+      .catch((err) => {
+        console.log(err);
+      });
     } else if (userId !== element.likes._id) {
       putLikeApi({ likes: userAllData }, element._id).then((dataFromServer) => {
         e.target.classList.toggle("element__like_active");
         likeCount.textContent = dataFromServer.likes.length;
+      })
+      .catch((err) => {
+        console.log(err);
       });
     }
   });

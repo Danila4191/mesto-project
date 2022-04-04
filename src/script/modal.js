@@ -28,11 +28,11 @@ export function submitProfileForm(evt) {
       infoName.textContent = formName.value;
       infoParagraph.textContent = formText.value;
       closePopup(popupEdit);
-      editProfileButtonSave.textContent = "Сохранить";
     })
     .catch((err) => {
       console.log(err);
-    });
+    })
+    .finally(()=>{editProfileButtonSave.textContent = "Сохранить"});
 }
 export function submitAvatarProfileForm(evt) {
   evt.preventDefault();
@@ -44,11 +44,11 @@ export function submitAvatarProfileForm(evt) {
       closePopup(popupImgProfile);
       AvatarProfileSave.disabled = "disabled";
       AvatarProfileSave.classList.add("form__save-button_disabled");
-      AvatarProfileSave.textContent = "Сохранить";
     })
     .catch((err) => {
       console.log(err);
-    });
+    })
+    .finally(()=>{ AvatarProfileSave.textContent = "Сохранить"});
 }
 export function submitAddCardForm(evt) {
   evt.preventDefault();
@@ -60,11 +60,11 @@ export function submitAddCardForm(evt) {
   })
     .then((dataFromServer) => {
       renderCard(dataFromServer, photos);
-      addImgButtonSave.textContent = "Создать";
     })
     .catch((err) => {
       console.log(err);
-    });
+    })
+    .finally(()=>{addImgButtonSave.textContent = "Создать"});
 
   closePopup(popupAdd);
   formEmptyName.value = "";
