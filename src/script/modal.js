@@ -80,7 +80,7 @@ export function submitAddCardForm(evt) {
 export function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", handleEscKey);
-  popup.removeEventListener("click", handleOverlay);
+  popup.removeEventListener("mousedown", handleOverlay);
 }
 export function openPopup(popup) {
   popup.classList.add("popup_opened");
