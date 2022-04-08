@@ -7,7 +7,7 @@ import {
   openPopup,
   submitAvatarProfileForm,
 } from "./script/modal.js";
-import { eventElement, renderCard } from "./script/card.js";
+import { renderCard } from "./script/card.js";
 import {
   photos,
   popupEdit,
@@ -20,10 +20,11 @@ import {
   popupImg,
   popupImgProfile,
   profileAvatar,
-  AvatarProfileSave,
+  avatarProfileSave,
   editProfileButtonSave,
+
 } from "./script/utils.js";
-import { getAllCardsApi, userApi } from "./script/api.js";
+import { getAllCardsApi, getUserInfoApi, } from "./script/api.js";
 
 const infoEditButtonOpen = document.querySelector(".info__edit-button");
 const editProfileButtonClose = document.querySelector("#profile_close");
@@ -39,7 +40,7 @@ profileAvatarButton.addEventListener("click", () => {
 imgProfileClose.addEventListener("click", () => {
   closePopup(popupImgProfile);
 });
-AvatarProfileSave.addEventListener("click", submitAvatarProfileForm);
+avatarProfileSave.addEventListener("click", submitAvatarProfileForm);
 editProfileButtonClose.addEventListener("click", () => {
   closePopup(popupEdit);
 });
@@ -67,23 +68,19 @@ const validationConfig = {
   inactiveButtonClass: "form__save-button_disabled",
 };
 enableValidation(validationConfig);
-
-
-getAllCardsApi().then((elements) => {
-  elements
-    .forEach(function (element) {
+export let userId = "";
+export let userAllData;
+Promise.all([getUserInfoApi(), getAllCardsApi()])
+  .then(([userData, elements]) => {
+    infoName.textContent = userData.name;
+    infoParagraph.textContent = userData.about;
+    profileAvatar.src = userData.avatar;
+    userId = userData._id;
+    userAllData = userData;
+    elements.forEach(function (element) {
       renderCard(element, photos);
-    })
-}).catch((err) => console.log(err));
-
-userApi()
-  .then((data) => {
-    infoName.textContent = data.name;
-    infoParagraph.textContent = data.about;
-    profileAvatar.src = data.avatar;
+    });
   })
   .catch((err) => {
     console.log(err);
   });
-
-//photos.addEventListener("click", eventElement); старое
