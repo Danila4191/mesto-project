@@ -12,5 +12,3 @@ export const formAvatarProfileLink = document.querySelector('#formAvatarProfileL
 export const profileAvatar = document.querySelector(".profile__avatar")
 export const avatarProfileSave = document.querySelector("#avatarProfileSave")
 export const editProfileButtonSave = document.querySelector("#profile_save");
-
-   
