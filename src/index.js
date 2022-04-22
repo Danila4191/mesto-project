@@ -22,9 +22,8 @@ import {
   profileAvatar,
   avatarProfileSave,
   editProfileButtonSave,
-
 } from "./script/utils.js";
-import { getAllCardsApi, getUserInfoApi, } from "./script/api.js";
+import { getAllCardsApi, getUserInfoApi, } from "./script/components/Api.js";
 
 const infoEditButtonOpen = document.querySelector(".info__edit-button");
 const editProfileButtonClose = document.querySelector("#profile_close");

@@ -4,7 +4,7 @@ import {
   deleteCardApi,
   putLikeApi,
   deleteLikeApi,
-} from "../script/api.js";
+} from "./components/Api.js";
 const popupImgScale = document.querySelector(".popup__img");
 const popupTittleScale = document.querySelector(".popup__img-title");
 import {userId,userAllData} from "../index.js";

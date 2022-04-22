@@ -1,64 +1,70 @@
-const config = {
-  url: "https://nomoreparties.co/v1/plus-cohort-8",
-  headers: {
-    "content-type": "application/json",
-    Authorization: "8263c3c6-b8b7-4055-9b88-53b541ccbb29",
-  },
-};
-const checkResponse = (res) => {
-  return res.ok ? res.json() : Promise.reject(res);
-};
-export function getUserInfoApi(data) {
-  return fetch(`${config.url}/users/me`, {
-    method: "GET",
-    headers: config.headers,
-    body: JSON.stringify(data),
-  }).then(checkResponse);
+export default class Api {
+  constructor({baseUrl, headers}) {
+    this._url = baseUrl;
+    this._headers = headers;
+  }
+    _checkResponse = (res) => {
+    return res.ok ? res.json() : Promise.reject(res);
+  };
+  getUserInfo(data) {
+    return fetch(`${this._url}/users/me`, {
+      method: "GET",
+      headers: this._headers,
+      body: JSON.stringify(data),
+    }).then(this._checkResponse);
+  }
+  getUserInfo(data) {
+    return fetch(`${ this._url}/users/me`, {
+      method: "GET",
+      headers:  this._headers,
+      body: JSON.stringify(data),
+    }).then(this._checkResponse);
+  }
+
+  deleteCard(dataId) {
+    return fetch(`${ this._url}/cards/${dataId}`, {
+      method: "DELETE",
+      headers:  this._headers,
+    }).then(this._checkResponse);
+  }
+  submitAvatarProfileForm(data) {
+    return fetch(`${ this._url}/users/me/avatar`, {
+      method: "PATCH",
+      headers:  this._headers,
+      body: JSON.stringify(data),
+    }).then(this._checkResponse);
+  }
+  submitProfileForm(data) {
+    return fetch(`${ this._url}/users/me`, {
+      method: "PATCH",
+      headers:  this._headers,
+      body: JSON.stringify(data),
+    }).then(this._checkResponse);
+  }
+  submitAddCardForm(data) {
+    return fetch(`${ this._url}/cards`, {
+      method: "POST",
+      headers:  this._headers,
+      body: JSON.stringify(data),
+    }).then(this._checkResponse);
+  }
+  putLike(data, dataId) {
+    return fetch(`${ this._url}/cards/likes/${dataId}`, {
+      method: "PUT",
+      headers:  this._headers,
+      body: JSON.stringify(data),
+    }).then(this._checkResponse);
+  }
+  deleteLike(data, dataId) {
+    return fetch(`${ this._url}/cards/likes/${dataId}`, {
+      method: "DELETE",
+      headers:  this._headers,
+      body: JSON.stringify(data),
+    }).then(this._checkResponse);
+  }
 }
-export function getAllCardsApi() {
-  return fetch(`${config.url}/cards`, {
-    method: "GET",
-    headers: config.headers,
-  }).then(checkResponse);
-}
-export function deleteCardApi(dataId) {
-  return fetch(`${config.url}/cards/${dataId}`, {
-    method: "DELETE",
-    headers: config.headers,
-  }).then(checkResponse);
-}
-export function submitAvatarProfileFormApi(data) {
-  return fetch(`${config.url}/users/me/avatar`, {
-    method: "PATCH",
-    headers: config.headers,
-    body: JSON.stringify(data),
-  }).then(checkResponse);
-}
-export function submitProfileFormApi(data) {
-  return fetch(`${config.url}/users/me`, {
-    method: "PATCH",
-    headers: config.headers,
-    body: JSON.stringify(data),
-  }).then(checkResponse);
-}
-export function submitAddCardFormApi(data) {
-  return fetch(`${config.url}/cards`, {
-    method: "POST",
-    headers: config.headers,
-    body: JSON.stringify(data),
-  }).then(checkResponse);
-}
-export function putLikeApi(data, dataId) {
-  return fetch(`${config.url}/cards/likes/${dataId}`, {
-    method: "PUT",
-    headers: config.headers,
-    body: JSON.stringify(data),
-  }).then(checkResponse);
-}
-export function deleteLikeApi(data, dataId) {
-  return fetch(`${config.url}/cards/likes/${dataId}`, {
-    method: "DELETE",
-    headers: config.headers,
-    body: JSON.stringify(data),
-  }).then(checkResponse);
-}
+
+
+
+
+
