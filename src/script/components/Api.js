@@ -6,20 +6,13 @@ export default class Api {
     _checkResponse = (res) => {
     return res.ok ? res.json() : Promise.reject(res);
   };
-  getUserInfo(data) {
+  getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       method: "GET",
-      headers: this._headers,
-      body: JSON.stringify(data),
+      headers: this._headers
     }).then(this._checkResponse);
   }
-  getUserInfo(data) {
-    return fetch(`${ this._url}/users/me`, {
-      method: "GET",
-      headers:  this._headers,
-      body: JSON.stringify(data),
-    }).then(this._checkResponse);
-  }
+
 
   deleteCard(dataId) {
     return fetch(`${ this._url}/cards/${dataId}`, {

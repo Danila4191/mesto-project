@@ -1,52 +1,26 @@
-import {
-  ESC,
-  api,
-  popupEdit,
-  popupAdd,
-  formText,
-  formName,
-  infoName,
-  addImgButtonSave,
-  infoParagraph,
-  photos,
-  popupImgProfile,
-  formAvatarProfileLink,
-  profileAvatar,
-  avatarProfileSave,
-  editProfileButtonSave,} from "../utils/constants"
+import ESC from "../utils/constants"
 class Popup {
-  constructor(popupSelector){
+  constructor(popupSelector, saveHandler) {
     this._popup = document.querySelector(popupSelector);
-    this._buttomSave = this._popup.querySelector(".form__save-button");
+    this._buttonSave = this._popup.querySelector(".form__save-button");
+    this._buttonClose = this._popup.querySelector(".popup__close");
+    this._saveHandler = saveHandler;
   }
-  submit(evt){
+  submit(evt) {
     evt.preventDefault();
-    this._buttomSave.textContent = "Сохранить...";
+    this._buttonSave.textContent = "Сохранить...";
   }
+  setEventListeners(saveHandler) {
+    this._buttonClose.setEventListeners('click', this.close);
+    this._buttonSave.setEventListeners('click', saveHandler);
 
-/* TODO В card
-  submitAddCardForm(evt) {
-    evt.preventDefault();
-    addImgButtonSave.textContent = "Создать...";
-    api.submitAddCardForm({
-      name: formEmptyName.value,
-      link: formEmptyLink.value,
-    })
-      .then((dataFromServer) => {
-        //renderCard(dataFromServer, photos);   TODO обновить после написания класса card
-        this.close();
-        formEmptyName.value = "";
-        formEmptyLink.value = "";
-        addImgButtonSave.disabled = "disabled";
-        addImgButtonSave.classList.add("form__save-button_disabled");
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        addImgButtonSave.textContent = "Создать";
-      });
-  }*/
+  }
+  addDotesButtonName() {
+    this._buttonSave.textContent = btn.textContent + '...';
+  }
+  removeDotesFromButtonName() {
+    this._buttonSave.textContent = btn.textContent.replace('...', '');
+  }
 
   close() {
     this._popup.classList.remove("popup_opened");
@@ -59,19 +33,16 @@ class Popup {
     this._popup.addEventListener('mousedown', this._handleOverlay);
   }
 
-    _handleEscKey(evt) {
+  _handleEscKey(evt) {
     if (evt.keyCode === ESC) {
-     // const openedPopup = document.querySelector(".popup_opened");
+      // const openedPopup = document.querySelector(".popup_opened");
       this.close();
     }
   }
-    _handleOverlay(evt) {
+  _handleOverlay(evt) {
     if (evt.target.classList.contains("popup")) {
       this.close(evt.target);
     }
   }
-
-
-
 
 }

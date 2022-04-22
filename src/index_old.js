@@ -33,68 +33,6 @@ const imgButtonClose = document.querySelector("#img_close");
 const profileAvatarButton = document.querySelector(".profile__avatar-button");
 const imgProfileClose = document.querySelector("#imgProfileClose");
 
-import api from "./utils/constants"
-import PopupWithForm from './components/PopupWithForm';
-import UserInfo from './components/UserInfo';
-
-const userInfo = new UserInfo('.info__name', '.info__paragraph', '.profile__avatar', '.info__edit-button');
-
-const popupEditProfile = new PopupWithForm('#popup-edit');
-const popupAvatar = new PopupWithForm('#popupImgProfile');
-const popupAddCard = new PopupWithForm('#popup-add');
-
-popupEditProfile.setEventListeners((evt) => {
-  evt.preventDefault();
-  popupEditProfile.addDotesButtonName();
-  api.submitProfileForm(userInfo.getUserInfo())
-    .then(() => {
-      userInfo.setUserInfo({ name: data.name, about: data.about });
-      popupEditProfile.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      popupEditProfile.removeDotesFromButtonName();
-    });
-});
-
-popupAvatar.setEventListeners((evt) => {
-  evt.preventDefault();
-  popupAvatar.addDotesButtonName();
-  userInfo.
-    api.submitAvatarProfileForm(userInfo.getUserAvatar())
-    .then(() => {
-      userInfo.setUserAvatar({ avatar: data.avatar });
-      popupAvatar.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      popupAvatar.removeDotesFromButtonName();
-    });
-});
-
-
-popupAddCard.setEventListeners((evt) => {
-  evt.preventDefault();
-  popupAvatar.addDotesButtonName();
-  userInfo.
-    api.submitAvatarProfileForm(userInfo.getUserAvatar())
-    .then(() => {
-      userInfo.setUserAvatar({ avatar: data.avatar });
-      popupAddCard.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      popupAddCard.removeDotesFromButtonName();
-    });
-});
-
-
 profileAvatarButton.addEventListener("click", () => {
   openPopup(popupImgProfile);
 });
@@ -135,8 +73,7 @@ Promise.all([getUserInfoApi(), getAllCardsApi()])
   .then(([userData, elements]) => {
     infoName.textContent = userData.name;
     infoParagraph.textContent = userData.about;
-    profileAvatar.src = userData.
-    ;
+    profileAvatar.src = userData.avatar;
     userId = userData._id;
     userAllData = userData;
     elements.forEach(function (element) {
