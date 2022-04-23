@@ -1,36 +1,38 @@
-import api from "../utils/constants"
+import { api } from "../utils/constants"
 
 export default class Card {
-  constructor(selector) {
+  constructor(item, selector, userId) {
     this._template = document.querySelector(selector).content;
+    this._userId = userId;
+    this._item = item;
   }
-  createCard(element) {
+  generate() {
 
     const newElement = this._template.querySelector(".element").cloneNode(true);
     const photoCardImage = newElement.querySelector(".element__mask-group");
-    photoCardImage.src = element.link;
-    photoCardImage.alt = element.name;
-    newElement.querySelector(".element__title").textContent = element.name;
+    photoCardImage.src = this._item.link;
+    photoCardImage.alt = this._item.name;
+    newElement.querySelector(".element__title").textContent = this._item.name;
     const deleteCardButton = newElement.querySelector(".element__delete-button");
     const likeCardButton = newElement.querySelector(".element__like");
     const likeCount = newElement.querySelector(".element__like-count");
-    if (element.owner._id !== userId){
+    if (this._item.owner._id !== this._userId) {
       deleteCardButton.remove();
     }
-    if (element.likes.find((like) => like._id === userId)) {
+    if (this._item.likes.find((like) => like._id === this._userId)) {
       likeCardButton.classList.add("element__like_active");
     }
-    likeCount.textContent = element.likes.length;
+    likeCount.textContent = this._item.likes.length;
     photoCardImage.addEventListener("click", () => {
-      popupImgScale.src = element.link;
-      popupImgScale.alt = element.name;
-      popupTittleScale.textContent = element.name;
+      popupImgScale.src = this._item.link;
+      popupImgScale.alt = this._item.name;
+      popupTittleScale.textContent = this._item.name;
       openPopup(popupImg);
     });
 
     deleteCardButton.addEventListener("click", (e) => {
-      if (element.owner._id === userId) {
-        api.deleteCard(element._id)
+      if (this._item.owner._id === userId) {
+        api.deleteCard(this._item._id)
           .then(() => {
             e.target.closest(".element").remove();
           })
@@ -41,22 +43,22 @@ export default class Card {
     });
 
     likeCardButton.addEventListener("click", (e) => {
-      if (element.likes.find((like) => like._id === userId)) {
-        api.deleteLike({ likes: userAllData }, element._id)
+      if (this._item.likes.find((like) => like._id === this._userId)) {
+        api.deleteLike({ likes: userAllData }, this._item._id)
           .then((dataFromServer) => {
             e.target.classList.toggle("element__like_active");
             likeCount.textContent = dataFromServer.likes.length;
-            element.likes = dataFromServer.likes
+            this._item.likes = dataFromServer.likes
           })
           .catch((err) => {
             console.log(err);
           });
       } else {
-        api.putLike({ likes: userAllData }, element._id)
+        api.putLike({ likes: userAllData }, this._item._id)
           .then((dataFromServer) => {
             e.target.classList.toggle("element__like_active");
             likeCount.textContent = dataFromServer.likes.length;
-            element.likes = dataFromServer.likes
+            this._item.likes = dataFromServer.likes
           })
           .catch((err) => {
             console.log(err);

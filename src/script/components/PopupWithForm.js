@@ -1,12 +1,4 @@
 import Popup from "./Popup"
-import {
-  api,
-  popupEdit,
-  formText,
-  formName,
-  infoName,
-  infoParagraph
-} from "../utils/constants"
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, nameSelector, textSelector) {
     super(popupSelector);
@@ -18,19 +10,23 @@ export default class PopupWithForm extends Popup {
     this._text.value = text;
   }
 
-  submit(evt) {
-    super.submit(evt);
-    api.submitProfileForm({ name: formName.value, about: formText.value })
-      .then(() => {
-        infoName.textContent = this._name.value;
-        infoParagraph.textContent = this._text.value;
-        this.close();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        this._buttonSave.textContent = "Сохранить";
-      });
+  getValues() {
+    var vars = new Map();
+    const imputes = this._popup.querySelectorAll('.form__input');
+    [...imputes].forEach((item) => {
+      vars.set(item.id, item)
+    });
+    return vars;
   }
+  clearValues() {
+    const imputes = this._popup.querySelectorAll('.form__input');
+    [...imputes].forEach((item) => {
+      item.textContent = '';
+    });
+  }
+  disableButtonSave() {
+    this._buttonSave.disabled = "disabled";
+    this._buttonSave.classList.add("form__save-button_disabled");
+  }
+
 }

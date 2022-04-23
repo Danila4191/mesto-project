@@ -25,16 +25,16 @@ export default class FormValidator {
     const isInputValid = inputElement.validity.valid;
     const errorElement = form.querySelector(`#${inputElement.id}-error`);
     if (!isInputValid) {
-      showError(errorElement, inputElement, this._config);
+      this._showError(errorElement, inputElement, this._config);
     } else {
-      hideError(errorElement, inputElement, this._config);
+      this._hideError(errorElement, inputElement, this._config);
     }
   };
-  setEventListener = (form) => {
+  _setEventListener = (form) => {
     const inputList = form.querySelectorAll(this._config.inputSelector);
     const submitButton = form.querySelector(this._config.submitButtonSelector);
 
-    formElement.addEventListener("submit", (e) => {
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
     });
 
@@ -47,9 +47,9 @@ export default class FormValidator {
   };
 
   enableValidation = () => {
-    const forms = document.querySelectorAll(config.formSelector);
+    const forms = document.querySelectorAll(this._config.formSelector);
     [...forms].forEach((form) => {
-      setEventListener(form);
+      this._setEventListener(form);
     });
   };
 

@@ -1,23 +1,19 @@
-import ESC from "../utils/constants"
-class Popup {
-  constructor(popupSelector, saveHandler) {
+import { ESC } from '../utils/constants'
+export default class Popup {
+  constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
     this._buttonSave = this._popup.querySelector(".form__save-button");
     this._buttonClose = this._popup.querySelector(".popup__close");
-    this._saveHandler = saveHandler;
   }
-  submit(evt) {
-    evt.preventDefault();
-    this._buttonSave.textContent = "Сохранить...";
-  }
+
   setEventListeners(saveHandler) {
-    this._buttonClose.setEventListeners('click', this.close);
-    this._buttonSave.setEventListeners('click', saveHandler);
+    this._buttonClose.addEventListener('click', () => this.close());
+    this._buttonSave.addEventListener('click', saveHandler);
 
   }
   addDotesButtonName() {
     this._buttonSave.textContent = btn.textContent + '...';
-  }
+  } 
   removeDotesFromButtonName() {
     this._buttonSave.textContent = btn.textContent.replace('...', '');
   }
