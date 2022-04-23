@@ -1,10 +1,10 @@
 import { api } from "../utils/constants"
 
 export default class Card {
-  constructor(item, selector, userId) {
+  constructor(item, selector, userAllData) {
     this._template = document.querySelector(selector).content;
-    this._userId = userId;
     this._item = item;
+    this._userAllData = userAllData
   }
   generate() {
 
@@ -16,10 +16,10 @@ export default class Card {
     const deleteCardButton = newElement.querySelector(".element__delete-button");
     const likeCardButton = newElement.querySelector(".element__like");
     const likeCount = newElement.querySelector(".element__like-count");
-    if (this._item.owner._id !== this._userId) {
+    if (this._item.owner._id !== this._userAllData._id) {
       deleteCardButton.remove();
     }
-    if (this._item.likes.find((like) => like._id === this._userId)) {
+    if (this._item.likes.find((like) => like._id === this._userAllData._id)) {
       likeCardButton.classList.add("element__like_active");
     }
     likeCount.textContent = this._item.likes.length;
@@ -31,7 +31,7 @@ export default class Card {
     });
 
     deleteCardButton.addEventListener("click", (e) => {
-      if (this._item.owner._id === userId) {
+      if (this._item.owner._id === this._userAllData._id) {
         api.deleteCard(this._item._id)
           .then(() => {
             e.target.closest(".element").remove();
@@ -43,8 +43,8 @@ export default class Card {
     });
 
     likeCardButton.addEventListener("click", (e) => {
-      if (this._item.likes.find((like) => like._id === this._userId)) {
-        api.deleteLike({ likes: userAllData }, this._item._id)
+      if (this._item.likes.find((like) => like._id === this._userAllData._id)) {
+        api.deleteLike({ likes: this._userAllData }, this._item._id)
           .then((dataFromServer) => {
             e.target.classList.toggle("element__like_active");
             likeCount.textContent = dataFromServer.likes.length;
@@ -54,7 +54,7 @@ export default class Card {
             console.log(err);
           });
       } else {
-        api.putLike({ likes: userAllData }, this._item._id)
+        api.putLike({ likes: this._userAllDataa }, this._item._id)
           .then((dataFromServer) => {
             e.target.classList.toggle("element__like_active");
             likeCount.textContent = dataFromServer.likes.length;
@@ -67,9 +67,6 @@ export default class Card {
     });
     return newElement;
   }
-  /*renderCard(element, container) {
-    const card = createCard(element);
-    container.prepend(card);
-  }*/
+
 
 }

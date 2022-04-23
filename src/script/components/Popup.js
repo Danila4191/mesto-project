@@ -12,10 +12,10 @@ export default class Popup {
 
   }
   addDotesButtonName() {
-    this._buttonSave.textContent = btn.textContent + '...';
-  } 
+    this._buttonSave.textContent = this._buttonSave.textContent + '...';
+  }
   removeDotesFromButtonName() {
-    this._buttonSave.textContent = btn.textContent.replace('...', '');
+    this._buttonSave.textContent = this._buttonSave.textContent.replace('...', '');
   }
 
   close() {
@@ -37,7 +37,7 @@ export default class Popup {
   }
   _handleOverlay(evt) {
     if (evt.target.classList.contains("popup")) {
-      this.close(evt.target);
+      this.close();
     }
   }
 

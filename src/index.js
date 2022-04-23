@@ -7,7 +7,7 @@ import Section from './script/components/Section';
 import Card from './script/components/Card';
 import FormValidator from './script/components/FormValidator';
 
-const userInfo = new UserInfo('.info__name', '.info__paragraph', '.profile__avatar', '.info__edit-button');
+const userInfo = new UserInfo('.info__name', '.info__paragraph', '.profile__avatar', '.profile__avatar-button', '.info__edit-button');
 const popupEditProfile = new PopupWithForm('#popup-edit');
 popupEditProfile.setEventListeners((evt) => {
   evt.preventDefault();
@@ -33,7 +33,7 @@ popupAvatar.setEventListeners((evt) => {
   popupAvatar.addDotesButtonName();
   const values = popupAvatar.getValues();
 
-  api.submitAvatarProfileForm({ avatar: values.get('formAvatarProfileLink').textContent })
+  api.submitAvatarProfileForm({ avatar: values.get('formAvatarProfileLink').value })
     .then((data) => {
       userInfo.setUserAvatar({ avatar: data.avatar });
       popupAvatar.close();
@@ -70,7 +70,7 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
     const cardList = new Section({
       data: elements,
       renderer: (item) => {
-        const card = new Card(item, '.template', userData._id);
+        const card = new Card(item, '#template', userData);
         const cardElement = card.generate();
         cardList.setItem(cardElement);
       }
@@ -88,17 +88,18 @@ popupAddCard.setEventListeners((evt) => {
   evt.preventDefault();
   popupAddCard.addDotesButtonName();
   const values = popupAddCard.getValues();
-  api.submitAddCardForm({ name: values.get('formEmptyName').textContent, link: values.get('formEmptyLink').textContent })
+  api.submitAddCardForm({ name: values.get('formEmptyName').value, link: values.get('formEmptyLink').value })
     .then((dataFromServer) => {
 
-      const cardList = new Section({
-        data: [dataFromServer],
+      const section = new Section({
+        data: dataFromServer,
         renderer: (item) => {
-          const card = new Card(item, '.template', userInfo.getUserId());
+          const card = new Card(item, '#template', userInfo.getUserData());
           const cardElement = card.generate();
-          cardList.setItem(cardElement);
+          section.setItem(cardElement);
         }
       }, '.photos');
+      section.renderItem();
 
       popupAddCard.close();
       popupAddCard.clearValues();
