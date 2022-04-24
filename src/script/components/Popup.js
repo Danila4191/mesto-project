@@ -25,8 +25,8 @@ export default class Popup {
   }
   open() {
     this._popup.classList.add("popup_opened");
-    document.addEventListener("keydown", this._handleEscKey);
-    this._popup.addEventListener('mousedown', this._handleOverlay);
+    document.addEventListener("keydown", this._handleEscKey.bind(this));
+    this._popup.addEventListener('mousedown', this._handleOverlay.bind(this));
   }
 
   _handleEscKey(evt) {
