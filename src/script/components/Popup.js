@@ -31,14 +31,14 @@ export default class Popup {
 
   _handleEscKey(evt) {
     if (evt.keyCode === ESC) {
-      // const openedPopup = document.querySelector(".popup_opened");
-      this.close();
+    this._popup.close();
     }
   }
   _handleOverlay(evt) {
     if (evt.target.classList.contains("popup")) {
-      this.close();
+      this._popup.close();
     }
   }
 
 }
+
