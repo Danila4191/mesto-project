@@ -13,7 +13,7 @@ popupEditProfile.setEventListeners((evt) => {
   evt.preventDefault();
   popupEditProfile.addDotesButtonName();
   const values = popupEditProfile.getValues();
-  api.submitProfileForm({ name: values.get('form_name').textContent, about: values.get('form_text').textContent })
+  api.submitProfileForm({ name: values.get('form_name').value, about: values.get('form_text').value })
     .then((data) => {
       userInfo.setUserInfo({ name: data.name, about: data.about });
       popupEditProfile.close();
@@ -43,6 +43,7 @@ popupAvatar.setEventListeners((evt) => {
     })
     .finally(() => {
       popupAvatar.removeDotesFromButtonName();
+
     });
 });
 
@@ -80,7 +81,6 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
   .catch(err => {
     console.log(err);
   });
-
 
 
 const popupAddCard = new PopupWithForm('#popup-add');

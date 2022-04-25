@@ -21,8 +21,9 @@ export default class PopupWithForm extends Popup {
   clearValues() {
     const imputes = this._popup.querySelectorAll('.form__input');
     [...imputes].forEach((item) => {
-      item.textContent = '';
+      item.value = ''
     });
+
   }
   disableButtonSave() {
     this._buttonSave.disabled = "disabled";
