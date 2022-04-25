@@ -96,7 +96,7 @@ popupAddCard.setEventListeners((evt) => {
         renderer: (item) => {
           const card = new Card(item, '#template', userInfo.getUserData());
           const cardElement = card.generate();
-          section.setItem(cardElement);
+          section.setItem(cardElement, false);
         }
       }, '.photos');
       section.renderItem();

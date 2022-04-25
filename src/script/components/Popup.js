@@ -8,14 +8,17 @@ export default class Popup {
 
   setEventListeners(saveHandler) {
     this._buttonClose.addEventListener('click', () => this.close());
-    this._buttonSave.addEventListener('click', saveHandler);
+    if (this._buttonSave != null)
+      this._buttonSave.addEventListener('click', saveHandler);
 
   }
   addDotesButtonName() {
-    this._buttonSave.textContent = this._buttonSave.textContent + '...';
+    if (this._buttonSave != null)
+      this._buttonSave.textContent = this._buttonSave.textContent + '...';
   }
   removeDotesFromButtonName() {
-    this._buttonSave.textContent = this._buttonSave.textContent.replace('...', '');
+    if (this._buttonSave != null)
+      this._buttonSave.textContent = this._buttonSave.textContent.replace('...', '');
   }
 
   close() {
@@ -31,12 +34,12 @@ export default class Popup {
 
   _handleEscKey(evt) {
     if (evt.keyCode === ESC) {
-    this._popup.close();
+      this.close();
     }
   }
   _handleOverlay(evt) {
     if (evt.target.classList.contains("popup")) {
-      this._popup.close();
+      this.close();
     }
   }
 
