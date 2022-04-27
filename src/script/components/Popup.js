@@ -1,9 +1,10 @@
-import { ESC } from '../utils/constants'
+
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
     this._buttonSave = this._popup.querySelector(".form__save-button");
     this._buttonClose = this._popup.querySelector(".popup__close");
+    this._ESC = 27;
   }
 
   setEventListeners(saveHandler) {
@@ -33,7 +34,7 @@ export default class Popup {
   }
 
   _handleEscKey(evt) {
-    if (evt.keyCode === ESC) {
+    if (evt.keyCode === this._ESC) {
       this.close();
     }
   }

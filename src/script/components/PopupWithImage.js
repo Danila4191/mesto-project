@@ -3,10 +3,13 @@ import Popup from "./Popup"
 export default class PopupWithImage extends Popup {
   constructor(popupSelector, link, name) {
     super(popupSelector, link, name);
-    this._link = link
-    this._name = name
+    this.init(link, name);
     this._popupImgScale = document.querySelector(".popup__img");
     this._popupTittleScale = document.querySelector(".popup__img-title");
+  }
+  init(link, name){
+    this._link = link
+    this._name = name
   }
   setImgPopup() {
 

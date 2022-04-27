@@ -1,11 +1,15 @@
-import { api } from "../utils/constants";
-import PopupWithImage from "../components/PopupWithImage";
+
 
 export default class Card {
-  constructor(item, selector, userAllData) {
+  constructor(item, selector, userAllData, popupImgScale, deleteCardHandler, deleteLikeHandler, putLikeHandler) {
     this._template = document.querySelector(selector).content;
     this._item = item;
     this._userAllData = userAllData;
+    this._popupImgScale = popupImgScale;
+    this._deleteCardHandler = deleteCardHandler;
+    this._deleteLikeHandler = deleteLikeHandler;
+    this._putLikeHandler = putLikeHandler;
+
   }
   generate() {
     const newElement = this._template.querySelector(".element").cloneNode(true);
@@ -26,53 +30,29 @@ export default class Card {
     }
     likeCount.textContent = this._item.likes.length;
 
-    const popupImgScale = new PopupWithImage(
-      "#popup-img",
-      this._item.link,
-      this._item.name
-    );
+
     photoCardImage.addEventListener("click", () => {
-      popupImgScale.open();
-      popupImgScale.setImgPopup()
-      popupImgScale.setEventListeners()
+
+      this._popupImgScale.init(this._item.link,
+        this._item.name);
+      this._popupImgScale.open();
+      this._popupImgScale.setImgPopup()
+      this._popupImgScale.setEventListeners()
     });
+
 
     deleteCardButton.addEventListener("click", (e) => {
       if (this._item.owner._id === this._userAllData._id) {
-        api
-          .deleteCard(this._item._id)
-          .then(() => {
-            e.target.closest(".element").remove();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        this._deleteCardHandler(e, this);
       }
     });
 
     likeCardButton.addEventListener("click", (e) => {
       if (this._item.likes.find((like) => like._id === this._userAllData._id)) {
-        api
-          .deleteLike({ likes: this._userAllData }, this._item._id)
-          .then((dataFromServer) => {
-            e.target.classList.toggle("element__like_active");
-            likeCount.textContent = dataFromServer.likes.length;
-            this._item.likes = dataFromServer.likes;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        this._deleteLikeHandler(e, this);
+
       } else {
-        api
-          .putLike({ likes: this._userAllDataa }, this._item._id)
-          .then((dataFromServer) => {
-            e.target.classList.toggle("element__like_active");
-            likeCount.textContent = dataFromServer.likes.length;
-            this._item.likes = dataFromServer.likes;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        this._putLikeHandler(e, this);
       }
     });
     return newElement;

@@ -6,6 +6,7 @@ import UserInfo from './script/components/UserInfo';
 import Section from './script/components/Section';
 import Card from './script/components/Card';
 import FormValidator from './script/components/FormValidator';
+import PopupWithImage from "./script/components/PopupWithImage";
 
 const userInfo = new UserInfo('.info__name', '.info__paragraph', '.profile__avatar', '.profile__avatar-button', '.info__edit-button');
 const popupEditProfile = new PopupWithForm('#popup-edit');
@@ -60,8 +61,52 @@ userInfo.setEventListeners(
 
 
 
+const popupImgScale = new PopupWithImage(
+  "#popup-img"
+);
 
-
+const renderer = (item, userData, cardList, popupImg, toEnd = true) => {
+  const card = new Card(item, '#template', userData, popupImg,
+    ((e, card_item) => {
+      api
+        .deleteCard(card_item._item._id)
+        .then(() => {
+          e.target.closest(".element").remove();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }).bind(card),
+    ((e, card_item) => {
+      api
+        .deleteLike({ likes: card_item._userAllData }, card_item._item._id)
+        .then((dataFromServer) => {
+          e.target.classList.toggle("element__like_active");
+          likeCount.textContent = dataFromServer.likes.length;
+          card_item._item.likes = dataFromServer.likes;
+        })
+        .catch((err) => {
+          console.log(err);
+        }
+        )
+    }).bind(card),
+    ((e, card_item) => {
+      api
+        .putLike({ likes: card_item._userAllData }, card_item._item._id)
+        .then((dataFromServer) => {
+          e.target.classList.toggle("element__like_active");
+          likeCount.textContent = dataFromServer.likes.length;
+          card_item._item.likes = dataFromServer.likes;
+        })
+        .catch((err) => {
+          console.log(err);
+        }
+        )
+    }).bind(card)
+  );
+  const cardElement = card.generate();
+  cardList.setItem(cardElement, toEnd);
+}
 
 Promise.all([api.getUserInfo(), api.getAllCards()])
   .then(([userData, elements]) => {
@@ -70,11 +115,7 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
 
     const cardList = new Section({
       data: elements,
-      renderer: (item) => {
-        const card = new Card(item, '#template', userData);
-        const cardElement = card.generate();
-        cardList.setItem(cardElement);
-      }
+      renderer: (item) => renderer(item, userData, cardList, popupImgScale)
     }, '.photos');
     cardList.renderItems();
   })
@@ -93,11 +134,7 @@ popupAddCard.setEventListeners((evt) => {
 
       const section = new Section({
         data: dataFromServer,
-        renderer: (item) => {
-          const card = new Card(item, '#template', userInfo.getUserData());
-          const cardElement = card.generate();
-          section.setItem(cardElement, false);
-        }
+        renderer: (item) => renderer(item, dataFromServer.owner, section, popupImgScale, false)
       }, '.photos');
       section.renderItem();
 
