@@ -49,18 +49,16 @@ export default class Api {
       body: JSON.stringify(data),
     }).then(this._checkResponse);
   }
-  putLike(data, dataId) {
+  putLike(dataId) {
     return fetch(`${this._url}/cards/likes/${dataId}`, {
       method: "PUT",
       headers: this._headers,
-      body: JSON.stringify(data),
     }).then(this._checkResponse);
   }
-  deleteLike(data, dataId) {
+  deleteLike(dataId) {
     return fetch(`${this._url}/cards/likes/${dataId}`, {
       method: "DELETE",
       headers: this._headers,
-      body: JSON.stringify(data),
     }).then(this._checkResponse);
   }
 }

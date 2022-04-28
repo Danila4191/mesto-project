@@ -35,7 +35,7 @@ const enableValidation = (config) => {
 
 enableValidation(validationConfig);
 
-const popupEditProfile = new PopupWithForm('#popup-edit',formValidators['edit-profile']);
+const popupEditProfile = new PopupWithForm('#popup-edit', formValidators['edit-profile']);
 popupEditProfile.setEventListeners((evt) => {
   evt.preventDefault();
   popupEditProfile.addDotesButtonName();
@@ -54,7 +54,7 @@ popupEditProfile.setEventListeners((evt) => {
 });
 
 
-const popupAvatar = new PopupWithForm('#popupImgProfile',formValidators['add-img']);
+const popupAvatar = new PopupWithForm('#popupImgProfile', formValidators['add-img']);
 popupAvatar.setEventListeners((evt) => {
   evt.preventDefault();
   popupAvatar.addDotesButtonName();
@@ -89,11 +89,11 @@ userInfo.setEventListeners(
 
 const popupImgScale = new PopupWithImage("#popup-img");
 
-const renderer = (item, userData, cardList, popupImg, toEnd = true) => {
-  const card = new Card(item, '#template', userData, popupImg,
-    ((e, card_item) => {
+const renderer = (item, userData) => {
+  const card = new Card(item, '#template', userData, popupImgScale,
+    ((e, id) => {
       api
-        .deleteCard(card_item._item._id)
+        .deleteCard(id)
         .then(() => {
           e.target.closest(".element").remove();
         })
@@ -101,26 +101,26 @@ const renderer = (item, userData, cardList, popupImg, toEnd = true) => {
           console.log(err);
         });
     }).bind(card),
-    ((e, card_item) => {
+    ((e, likeCount, id) => {
       api
-        .deleteLike({ likes: card_item._userAllData }, card_item._item._id)
+        .deleteLike(id)
         .then((dataFromServer) => {
           e.target.classList.toggle("element__like_active");
           likeCount.textContent = dataFromServer.likes.length;
-          card_item._item.likes = dataFromServer.likes;
+          item.likes = dataFromServer.likes;
         })
         .catch((err) => {
           console.log(err);
         }
         )
     }).bind(card),
-    ((e, card_item) => {
+    ((e, likeCount, id) => {
       api
-        .putLike({ likes: card_item._userAllData }, card_item._item._id)
+        .putLike(id)
         .then((dataFromServer) => {
           e.target.classList.toggle("element__like_active");
           likeCount.textContent = dataFromServer.likes.length;
-          card_item._item.likes = dataFromServer.likes;
+          item.likes = dataFromServer.likes;
         })
         .catch((err) => {
           console.log(err);
@@ -128,27 +128,25 @@ const renderer = (item, userData, cardList, popupImg, toEnd = true) => {
         )
     }).bind(card)
   );
-  const cardElement = card.generate();
-  cardList.setItem(cardElement, toEnd);
-}
+  return card.generate();
 
+}
+let cardList = null;
 Promise.all([api.getUserInfo(), api.getAllCards()])
   .then(([userData, elements]) => {
     userInfo.setUserInfo(userData);
     userInfo.setUserAvatar(userData);
-
-    const cardList = new Section({
-      data: elements,
-      renderer: (item) => renderer(item, userData, cardList, popupImgScale)
+    cardList = new Section({
+      renderer: (item) => renderer(item, userData)
     }, '.photos');
-    cardList.renderItems();
+    cardList.renderItems(elements);
   })
   .catch(err => {
     console.log(err);
   });
 
 
-const popupAddCard = new PopupWithForm('#popup-add',formValidators['add-imgProfile']);
+const popupAddCard = new PopupWithForm('#popup-add', formValidators['add-imgProfile']);
 popupAddCard.setEventListeners((evt) => {
   evt.preventDefault();
   popupAddCard.addDotesButtonName();
@@ -156,12 +154,7 @@ popupAddCard.setEventListeners((evt) => {
   api.submitAddCardForm({ name: values.get('formEmptyName').value, link: values.get('formEmptyLink').value })
     .then((dataFromServer) => {
 
-      const section = new Section({
-        data: dataFromServer,
-        renderer: (item) => renderer(item, dataFromServer.owner, section, popupImgScale, false)
-      }, '.photos');
-      section.renderItem();
-
+      cardList.addItem(dataFromServer, false);
       popupAddCard.close();
       popupAddCard.clearValues();
       popupAddCard.disableButtonSave();
@@ -177,6 +170,3 @@ const addCardButton = document.querySelector(".profile__button");
 addCardButton.addEventListener("click", () => {
   popupAddCard.open();
 });
-
-//const validator = new FormValidator(validationConfig);
-//validator.enableValidation();
