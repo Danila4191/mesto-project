@@ -9,7 +9,33 @@ import FormValidator from './script/components/FormValidator';
 import PopupWithImage from "./script/components/PopupWithImage";
 
 const userInfo = new UserInfo('.info__name', '.info__paragraph', '.profile__avatar', '.profile__avatar-button', '.info__edit-button');
-const popupEditProfile = new PopupWithForm('#popup-edit');
+
+const validationConfig = {
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__save-button",
+  formSelector: ".form",
+  inputErrorClass: "form__input_error",
+  inactiveButtonClass: "form__save-button_disabled",
+};
+
+
+
+const formValidators = {};
+
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+    const formName = formElement.getAttribute('name')
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+
+enableValidation(validationConfig);
+
+const popupEditProfile = new PopupWithForm('#popup-edit',formValidators['edit-profile']);
 popupEditProfile.setEventListeners((evt) => {
   evt.preventDefault();
   popupEditProfile.addDotesButtonName();
@@ -28,7 +54,7 @@ popupEditProfile.setEventListeners((evt) => {
 });
 
 
-const popupAvatar = new PopupWithForm('#popupImgProfile');
+const popupAvatar = new PopupWithForm('#popupImgProfile',formValidators['add-img']);
 popupAvatar.setEventListeners((evt) => {
   evt.preventDefault();
   popupAvatar.addDotesButtonName();
@@ -61,9 +87,7 @@ userInfo.setEventListeners(
 
 
 
-const popupImgScale = new PopupWithImage(
-  "#popup-img"
-);
+const popupImgScale = new PopupWithImage("#popup-img");
 
 const renderer = (item, userData, cardList, popupImg, toEnd = true) => {
   const card = new Card(item, '#template', userData, popupImg,
@@ -124,7 +148,7 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
   });
 
 
-const popupAddCard = new PopupWithForm('#popup-add');
+const popupAddCard = new PopupWithForm('#popup-add',formValidators['add-imgProfile']);
 popupAddCard.setEventListeners((evt) => {
   evt.preventDefault();
   popupAddCard.addDotesButtonName();
@@ -154,13 +178,5 @@ addCardButton.addEventListener("click", () => {
   popupAddCard.open();
 });
 
-
-const validationConfig = {
-  inputSelector: ".form__input",
-  submitButtonSelector: ".form__save-button",
-  formSelector: ".form",
-  inputErrorClass: "form__input_error",
-  inactiveButtonClass: "form__save-button_disabled",
-};
-const validator = new FormValidator(validationConfig);
-validator.enableValidation();
+//const validator = new FormValidator(validationConfig);
+//validator.enableValidation();
