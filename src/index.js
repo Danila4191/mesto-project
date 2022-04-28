@@ -8,7 +8,7 @@ import Card from './script/components/Card';
 import FormValidator from './script/components/FormValidator';
 import PopupWithImage from "./script/components/PopupWithImage";
 
-const userInfo = new UserInfo('.info__name', '.info__paragraph', '.profile__avatar', '.profile__avatar-button', '.info__edit-button');
+const userInfo = new UserInfo('.info__name', '.info__paragraph', '.profile__avatar');
 
 const validationConfig = {
   inputSelector: ".form__input",
@@ -42,7 +42,7 @@ popupEditProfile.setEventListeners((evt) => {
   const values = popupEditProfile.getValues();
   api.submitProfileForm({ name: values.get('form_name').value, about: values.get('form_text').value })
     .then((data) => {
-      userInfo.setUserInfo({ name: data.name, about: data.about });
+      userInfo.setUserInfo(data);
       popupEditProfile.close();
     })
     .catch((err) => {
@@ -62,7 +62,7 @@ popupAvatar.setEventListeners((evt) => {
 
   api.submitAvatarProfileForm({ avatar: values.get('formAvatarProfileLink').value })
     .then((data) => {
-      userInfo.setUserAvatar({ avatar: data.avatar });
+      userInfo.setUserInfo(data);
       popupAvatar.close();
     })
     .catch((err) => {
@@ -74,16 +74,19 @@ popupAvatar.setEventListeners((evt) => {
     });
 });
 
-userInfo.setEventListeners(
-  () => popupAvatar.open(),
-  () => {
-    const sourceUserInfo = userInfo.getUserInfo();
-    const targetImputes = popupEditProfile.getValues();
-    targetImputes.get('form_name').value = sourceUserInfo.name;
-    targetImputes.get('form_text').value = sourceUserInfo.about;
-    popupEditProfile.open();
-  }
-);
+
+const avatarButton = document.querySelector('.profile__avatar-button');
+const infoButton = document.querySelector('.info__edit-button');
+avatarButton.addEventListener("click", () => popupAvatar.open());
+infoButton.addEventListener("click", () => {
+  const sourceUserInfo = userInfo.getUserInfo();
+  const targetImputes = popupEditProfile.getValues();
+  targetImputes.get('form_name').value = sourceUserInfo.name;
+  targetImputes.get('form_text').value = sourceUserInfo.about;
+  popupEditProfile.open();
+})
+
+
 
 
 
@@ -135,7 +138,6 @@ let cardList = null;
 Promise.all([api.getUserInfo(), api.getAllCards()])
   .then(([userData, elements]) => {
     userInfo.setUserInfo(userData);
-    userInfo.setUserAvatar(userData);
     cardList = new Section({
       renderer: (item) => renderer(item, userData)
     }, '.photos');
