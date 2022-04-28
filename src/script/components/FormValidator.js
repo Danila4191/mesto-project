@@ -28,7 +28,7 @@ export default class FormValidator {
   };
   _hideError = (errorElement, inputElement) => {
     inputElement.classList.remove(this._config.inputErrorClass);
-    errorElement.textContent = inputElement.validationMessage;
+    errorElement.textContent = '';
   };
   _checkInputValidity = (inputElement) => {
     const isInputValid = inputElement.validity.valid;
