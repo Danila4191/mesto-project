@@ -35,7 +35,7 @@ const enableValidation = (config) => {
 
 enableValidation(validationConfig);
 
-const popupEditProfile = new PopupWithForm('#popup-edit', formValidators['edit-profile']);
+const popupEditProfile = new PopupWithForm('#popup-edit');
 popupEditProfile.setEventListeners((evt) => {
   evt.preventDefault();
   popupEditProfile.addDotesButtonName();
@@ -54,7 +54,7 @@ popupEditProfile.setEventListeners((evt) => {
 });
 
 
-const popupAvatar = new PopupWithForm('#popupImgProfile', formValidators['add-img']);
+const popupAvatar = new PopupWithForm('#popupImgProfile');
 popupAvatar.setEventListeners((evt) => {
   evt.preventDefault();
   popupAvatar.addDotesButtonName();
@@ -77,14 +77,14 @@ popupAvatar.setEventListeners((evt) => {
 
 const avatarButton = document.querySelector('.profile__avatar-button');
 const infoButton = document.querySelector('.info__edit-button');
-avatarButton.addEventListener("click", () => popupAvatar.open());
+avatarButton.addEventListener("click", () => popupAvatar.open(formValidators['add-img']));
 infoButton.addEventListener("click", () => {
   const sourceUserInfo = userInfo.getUserInfo();
   popupEditProfile.setValues({
     name: sourceUserInfo.name,
     text: sourceUserInfo.about
   });
-  popupEditProfile.open();
+  popupEditProfile.open(formValidators['edit-profile']);
 });
 
 
@@ -149,7 +149,7 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
   });
 
 
-const popupAddCard = new PopupWithForm('#popup-add', formValidators['add-imgProfile']);
+const popupAddCard = new PopupWithForm('#popup-add');
 popupAddCard.setEventListeners((evt) => {
   evt.preventDefault();
   popupAddCard.addDotesButtonName();
@@ -171,5 +171,5 @@ popupAddCard.setEventListeners((evt) => {
 });
 const addCardButton = document.querySelector(".profile__button");
 addCardButton.addEventListener("click", () => {
-  popupAddCard.open();
+  popupAddCard.open(formValidators['add-imgProfile']);
 });

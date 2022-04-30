@@ -1,14 +1,12 @@
 export default class Popup {
-  constructor(popupSelector, validator) {
+  constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
     this._buttonSave = this._popup.querySelector(".form__save-button");
     this._buttonClose = this._popup.querySelector(".popup__close");
     this._form = this._popup.querySelector(".form");
     this._ESC = 27;
-    this._validator = validator;
-   //this._handleEscClose = this._handleEscClose.bind(this)// новое
   }
-  // Новое еще не работает. Первое закрытие по оверплею после перезагрузки страницы не работает.
+
   setEventListeners(
     escClose = (evt) => {
       if (evt.keyCode === this._ESC) {
@@ -23,7 +21,7 @@ export default class Popup {
     }
   ) {
     this._buttonClose.addEventListener("click", () => this.close());
-    this._handleEscClose = escClose.bind(this); //старое
+    this._handleEscClose = escClose.bind(this);
     this._handleOverlay = overlay.bind(this);
   }
   addDotesButtonName() {
@@ -40,12 +38,12 @@ export default class Popup {
 
   close() {
     this._popup.classList.remove("popup_opened");
-   document.removeEventListener('keydown', this._handleEscClose); //новое
-    if (this._validator != null) this._validator.resetValidation();
+    document.removeEventListener('keydown', this._handleEscClose);
   }
-  open() {
+  open(validator) {
+    if (validator != null) validator.resetValidation();
     this._popup.classList.add("popup_opened");
-  document.addEventListener('keydown', this._handleEscClose); //новое
+    document.addEventListener('keydown', this._handleEscClose);
     this._popup.addEventListener("mousedown", this._handleOverlay);
   }
 }
