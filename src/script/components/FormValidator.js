@@ -28,7 +28,7 @@ export default class FormValidator {
   };
   _hideError = (errorElement, inputElement) => {
     inputElement.classList.remove(this._config.inputErrorClass);
-    errorElement.textContent = inputElement.validationMessage;
+    errorElement.textContent = '';
   };
   _checkInputValidity = (inputElement) => {
     const isInputValid = inputElement.validity.valid;
@@ -42,10 +42,6 @@ export default class FormValidator {
   _setEventListener = () => {
     this._inputList = this._form.querySelectorAll(this._config.inputSelector);
     this._submitButton = this._form.querySelector(this._config.submitButtonSelector);
-
-    this._form.addEventListener("submit", (e) => {
-      e.preventDefault();
-    });
 
     [...this._inputList].forEach((input) => {
       input.addEventListener("input", () => {

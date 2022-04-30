@@ -1,16 +1,12 @@
 import Popup from "./Popup";
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, validator, nameSelector, textSelector) {
+  constructor(popupSelector, validator) {
     super(popupSelector, validator);
-    //два поля ниже нужно исправить
-    this._name = this._popup.querySelector(nameSelector);
-    this._text = this._popup.querySelector(textSelector);
-    this._inputes = this._popup.querySelectorAll(".form__input");
+    this._inputs = this._popup.querySelectorAll(".form__input");
   }
 
-  setValues(name, text) {
-    this._name.value = name;
-    this._text.value = text;
+  setValues(data) {
+    this._inputs.forEach(input => input.value = data[input.name]);
   }
   close() {
     super.close();
@@ -22,14 +18,8 @@ export default class PopupWithForm extends Popup {
       this._form.addEventListener("submit", saveHandler);
   }
   getValues() {
-   let vars = new Map();
-    [... this._inputes].forEach((item) => {
-      vars.set(item.id, item);
-    });
-    return vars;
-  /* // Нужно добавить
-   this._formValues = {};
-   this._inputes.forEach(input => this._formValues[input.name] = input.value);
-    return this._formValues;*/
+    this._formValues = {};
+    this._inputs.forEach(input => this._formValues[input.name] = input.value);
+    return this._formValues;
   }
 }
