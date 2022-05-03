@@ -14,7 +14,6 @@ export default class Card {
   _setEventListeners() {
 
     this._photoCardImage.addEventListener("click", () => {
-      this._popupImgScale.setEventListeners()
       this._popupImgScale.open(this._item.link, this._item.name);
     });
 

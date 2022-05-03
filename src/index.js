@@ -77,14 +77,19 @@ popupAvatar.setEventListeners((evt) => {
 
 const avatarButton = document.querySelector('.profile__avatar-button');
 const infoButton = document.querySelector('.info__edit-button');
-avatarButton.addEventListener("click", () => popupAvatar.open(formValidators['add-img']));
+avatarButton.addEventListener("click", () => {
+  popupAvatar.open()
+  formValidators['add-img'].resetValidation();
+})
+
 infoButton.addEventListener("click", () => {
   const sourceUserInfo = userInfo.getUserInfo();
   popupEditProfile.setValues({
     name: sourceUserInfo.name,
     text: sourceUserInfo.about
   });
-  popupEditProfile.open(formValidators['edit-profile']);
+  popupEditProfile.open()
+  formValidators['edit-profile'].resetValidation();
 });
 
 
@@ -92,7 +97,7 @@ infoButton.addEventListener("click", () => {
 
 
 const popupImgScale = new PopupWithImage("#popup-img");
-
+popupImgScale.setEventListeners()
 const renderer = (item, userData) => {
   const card = new Card(item, '#template', userData, popupImgScale,
     ((e, id) => {
@@ -159,8 +164,6 @@ popupAddCard.setEventListeners((evt) => {
 
       cardList.addItem(dataFromServer, false);
       popupAddCard.close();
-      popupAddCard.clearValues();
-      popupAddCard.disableButtonSave();
     })
     .catch((err) => {
       console.log(err);
@@ -171,5 +174,7 @@ popupAddCard.setEventListeners((evt) => {
 });
 const addCardButton = document.querySelector(".profile__button");
 addCardButton.addEventListener("click", () => {
-  popupAddCard.open(formValidators['add-imgProfile']);
+  popupAddCard.open()
+  formValidators['add-imgProfile'].resetValidation();
 });
+//Лайки delete, Put.Конструктор PopupWithForm
