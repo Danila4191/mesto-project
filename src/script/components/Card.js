@@ -20,7 +20,7 @@ export default class Card {
 
     this._deleteCardButton.addEventListener("click", (e) => {
       if (this._item.owner._id === this._userAllData._id) {
-        this._deleteCardHandler(e, this._item._id);
+        this._deleteCardHandler(this._item._id);
       }
     });
 

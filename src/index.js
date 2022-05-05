@@ -100,7 +100,7 @@ const popupImgScale = new PopupWithImage("#popup-img");
 popupImgScale.setEventListeners()
 const renderer = (item, userData) => {
   const card = new Card(item, '#template', userData, popupImgScale,
-    ((e, id) => {
+    ((id) => {
       api
         .deleteCard(id)
         .then(() => {
@@ -126,6 +126,7 @@ const renderer = (item, userData) => {
         .putLike(id)
         .then((dataFromServer) => {
           card.changeLike(dataFromServer.likes.length, dataFromServer.likes);
+
         })
         .catch((err) => {
           console.log(err);
