@@ -26,11 +26,19 @@ export default class Card {
 
     this._likeCardButton.addEventListener("click", (e) => {
       if (this._item.likes.find((like) => like._id === this._userAllData._id)) {
-        this._deleteLikeHandler(e, this._likeCount, this._item._id);
+        this._deleteLikeHandler(this._item._id);
       } else {
-        this._putLikeHandler(e, this._likeCount, this._item._id);
+        this._putLikeHandler(this._item._id);
       }
     });
+  }
+  changeLike(length, likes) {
+    this._likeCardButton.classList.toggle("element__like_active");
+    this._likeCount.textContent = length;
+    this._item.likes = likes;
+  }
+  remove() {
+    this._element.remove();
   }
   generate() {
     this._element = this._template.querySelector(".element").cloneNode(true);

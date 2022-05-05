@@ -35,44 +35,44 @@ const enableValidation = (config) => {
 
 enableValidation(validationConfig);
 
-const popupEditProfile = new PopupWithForm('#popup-edit');
-popupEditProfile.setEventListeners((evt) => {
+const popupEditProfile = new PopupWithForm('#popup-edit', (evt, popup) => {
   evt.preventDefault();
-  popupEditProfile.addDotesButtonName();
-  const values = popupEditProfile.getValues();
+  popup.addDotesButtonName();
+  const values = popup.getValues();
   api.submitProfileForm({ name: values['name'], about: values['text'] })
     .then((data) => {
       userInfo.setUserInfo(data);
-      popupEditProfile.close();
+      popup.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      popupEditProfile.removeDotesFromButtonName();
+      popup.removeDotesFromButtonName();
     });
 });
+popupEditProfile.setEventListeners();
 
 
-const popupAvatar = new PopupWithForm('#popupImgProfile');
-popupAvatar.setEventListeners((evt) => {
+const popupAvatar = new PopupWithForm('#popupImgProfile', (evt, popup) => {
   evt.preventDefault();
-  popupAvatar.addDotesButtonName();
-  const values = popupAvatar.getValues();
+  popup.addDotesButtonName();
+  const values = popup.getValues();
 
   api.submitAvatarProfileForm({ avatar: values['href'] })
     .then((data) => {
       userInfo.setUserInfo(data);
-      popupAvatar.close();
+      popup.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      popupAvatar.removeDotesFromButtonName();
+      popup.removeDotesFromButtonName();
 
     });
 });
+popupAvatar.setEventListeners();
 
 
 const avatarButton = document.querySelector('.profile__avatar-button');
@@ -104,38 +104,34 @@ const renderer = (item, userData) => {
       api
         .deleteCard(id)
         .then(() => {
-          e.target.closest(".element").remove();
+          card.remove();
         })
         .catch((err) => {
           console.log(err);
         });
-    }).bind(card),
-    ((e, likeCount, id) => {
+    }),
+    ((id) => {
       api
         .deleteLike(id)
         .then((dataFromServer) => {
-          e.target.classList.toggle("element__like_active");
-          likeCount.textContent = dataFromServer.likes.length;
-          item.likes = dataFromServer.likes;
+          card.changeLike(dataFromServer.likes.length, dataFromServer.likes);
         })
         .catch((err) => {
           console.log(err);
         }
         )
-    }).bind(card),
-    ((e, likeCount, id) => {
+    }),
+    ((id) => {
       api
         .putLike(id)
         .then((dataFromServer) => {
-          e.target.classList.toggle("element__like_active");
-          likeCount.textContent = dataFromServer.likes.length;
-          item.likes = dataFromServer.likes;
+          card.changeLike(dataFromServer.likes.length, dataFromServer.likes);
         })
         .catch((err) => {
           console.log(err);
         }
         )
-    }).bind(card)
+    })
   );
   return card.generate();
 
@@ -154,24 +150,24 @@ Promise.all([api.getUserInfo(), api.getAllCards()])
   });
 
 
-const popupAddCard = new PopupWithForm('#popup-add');
-popupAddCard.setEventListeners((evt) => {
+const popupAddCard = new PopupWithForm('#popup-add', (evt, popup) => {
   evt.preventDefault();
-  popupAddCard.addDotesButtonName();
-  const values = popupAddCard.getValues();
+  popup.addDotesButtonName();
+  const values = popup.getValues();
   api.submitAddCardForm({ name: values['name'], link: values['href'] })
     .then((dataFromServer) => {
 
       cardList.addItem(dataFromServer, false);
-      popupAddCard.close();
+      popup.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      popupAddCard.removeDotesFromButtonName();
+      popup.removeDotesFromButtonName();
     });
 });
+popupAddCard.setEventListeners();
 const addCardButton = document.querySelector(".profile__button");
 addCardButton.addEventListener("click", () => {
   popupAddCard.open()
