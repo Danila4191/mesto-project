@@ -22,3 +22,7 @@
 **github pages**
 
 * [Ссылка страницу сайта](https://danila4191.github.io/mesto-project/)
+
+**Авторы**
+* [Бережинский Олег oberezhinsky@yamdex.ru] (https://github.com/berezhinskiyo)
+* [Зиновьев Данила danilam.zinovjev@yandex.ru] (https://github.com/Danila4191)
